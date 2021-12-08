@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "destinationEntityManagerFactory",
         transactionManagerRef = "destinationTransactionManager",
-        basePackages = {"com.example.demospringbatch.domain.destination"}
+        basePackages = {"com.example.demospringbatch.repository.destination"}
 )
 public class DestinationDBConfig {
 

@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "sourceEntityManagerFactory",
         transactionManagerRef = "sourceTransactionManager",
-        basePackages = {"com.example.demospringbatch.domain.source"}
+        basePackages = {"com.example.demospringbatch.repository.source"}
 )
 public class SourceDBConfig {
 
