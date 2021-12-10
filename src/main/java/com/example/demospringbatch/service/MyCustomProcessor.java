@@ -1,21 +1,24 @@
 package com.example.demospringbatch.service;
 
-import com.example.demospringbatch.domain.destination.Manager;
-import com.example.demospringbatch.domain.source.Staff;
+
+import com.example.demospringbatch.domain.destination.CvCatalogPreReportRefund;
+import com.example.demospringbatch.domain.source.OscCatalogPreReportRefund;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class MyCustomProcessor implements ItemProcessor<Staff, Manager> {
+public class MyCustomProcessor implements ItemProcessor<OscCatalogPreReportRefund, CvCatalogPreReportRefund> {
 
     @Override
-    public Manager process(Staff item) throws Exception {
+    public CvCatalogPreReportRefund process(OscCatalogPreReportRefund item) throws Exception {
         System.out.println("Batch processor: Processing data: " + item);
-        var result = new Manager();
-        result.setId(item.getId());
-        result.setName(item.getName());
-        result.setDepartment(item.getDepartment());
-        return result;
+        return CvCatalogPreReportRefund.builder()
+                .id(item.getId())
+                .storeId(item.getStoreId())
+                .orderCode(item.getOrderCode())
+                .orderDate(item.getOrderDate())
+                .productName(item.getProductName())
+                .build();
     }
 }

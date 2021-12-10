@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableScheduling
@@ -23,7 +24,7 @@ public class SchedulerConfig {
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 
-    @Scheduled(fixedDelay = 5000, initialDelay = 5000)
+    @Scheduled(fixedDelay = 60, initialDelay = 10, timeUnit = TimeUnit.SECONDS)
     public void scheduleByFixedRate() throws Exception {
         System.out.println("Batch job starting");
         JobParameters jobParameters = new JobParametersBuilder()

@@ -1,7 +1,7 @@
 package com.example.demospringbatch.config;
 
-import com.example.demospringbatch.domain.destination.Manager;
-import com.example.demospringbatch.domain.source.Staff;
+import com.example.demospringbatch.domain.destination.CvCatalogPreReportRefund;
+import com.example.demospringbatch.domain.source.OscCatalogPreReportRefund;
 import com.example.demospringbatch.service.MyCustomProcessor;
 import com.example.demospringbatch.service.MyCustomReader;
 import com.example.demospringbatch.service.MyCustomWriter;
@@ -39,7 +39,7 @@ public class BatchConfig {
     @Bean
     public Step createStep() {
         return stepBuilderFactory.get("MyStep")
-                .<Staff, Manager> chunk(1)
+                .<OscCatalogPreReportRefund, CvCatalogPreReportRefund> chunk(1)
                 .reader(myCustomReader)
                 .processor(myCustomProcessor)
                 .writer(myCustomWriter)
