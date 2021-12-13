@@ -2,8 +2,6 @@ package com.example.demospringbatch.model;
 
 import lombok.Builder;
 import lombok.Data;
-
-import javax.persistence.Column;
 import java.io.Serializable;
 
 @Data

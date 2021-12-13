@@ -1,20 +1,20 @@
 package com.example.demospringbatch.service;
 
 
-import com.example.demospringbatch.domain.destination.CvCatalogPreReportRefund;
-import com.example.demospringbatch.domain.source.OscCatalogPreReportRefund;
+
+import com.example.demospringbatch.domain.destination.OscCatalogPreReport;
+import com.example.demospringbatch.model.PreReportDto;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class MyCustomProcessor implements ItemProcessor<OscCatalogPreReportRefund, CvCatalogPreReportRefund> {
+public class MyCustomProcessor implements ItemProcessor<PreReportDto , OscCatalogPreReport> {
 
     @Override
-    public CvCatalogPreReportRefund process(OscCatalogPreReportRefund item) throws Exception {
+    public OscCatalogPreReport process(PreReportDto item) throws Exception {
         System.out.println("Batch processor: Processing data: " + item);
-        return CvCatalogPreReportRefund.builder()
-                .id(item.getId())
+        return OscCatalogPreReport.builder()
                 .storeId(item.getStoreId())
                 .orderCode(item.getOrderCode())
                 .orderDate(item.getOrderDate())

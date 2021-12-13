@@ -90,4 +90,7 @@ public class OscCatalogOrder implements Serializable {
     @Column(name = "shipping_zip")
     private String shippingZip;
 
+    @Column(name = "modified_timestamp")
+    private Long modifiedTimestamp;
+
 }

@@ -45,6 +45,10 @@ public class OscCatalogOrderItem implements Serializable {
     private Long price;
     private Long quantity;
     private Long discount;
+
     @Column(name = "additional_data")
     private String additionalData;
+
+    @Column(name = "added_timestamp")
+    private Long addedTimestamp;
 }
