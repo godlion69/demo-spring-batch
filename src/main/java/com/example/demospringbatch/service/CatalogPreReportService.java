@@ -1,9 +1,9 @@
 package com.example.demospringbatch.service;
 
-import com.example.demospringbatch.model.PreReportDto;
-import com.example.demospringbatch.repository.source.OscCatalogOrderItemRepository;
+import com.example.demospringbatch.model.PreReportItemReaderView;
+import com.example.demospringbatch.repository.source.OrderPreReportRepository;
 import com.example.demospringbatch.repository.source.OscCatalogOrderRepository;
-import com.example.demospringbatch.repository.source.OscCatalogPreReportDiaryRepository;
+import com.example.demospringbatch.repository.destination.OscCatalogPreReportDiaryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -20,21 +20,32 @@ public class CatalogPreReportService {
 
     private final OscCatalogPreReportDiaryRepository catalogPreReportDiaryRepository;
     private final OscCatalogOrderRepository catalogOrderRepository;
-    private final OscCatalogOrderItemRepository catalogOrderItemRepository;
+    private final OrderPreReportRepository orderPreReportRepository;
 
-    public List<PreReportDto> getCatalogPreReport() {
+    public List<PreReportItemReaderView> getCatalogPreReport() {
         Long currentTime = Calendar.getInstance().getTimeInMillis() / 1000;
-        List<PreReportDto> listPreReport = new ArrayList<>();
+        List<PreReportItemReaderView> listResult = new ArrayList<>();
         // Get list of catalog pre report diary in current
-        var listDiary = catalogPreReportDiaryRepository.getDiaryByTime(currentTime, PageRequest.of(0, 20));
+        log.info("Get list diary at time: {}", Calendar.getInstance().getTime());
+        var listDiary = catalogPreReportDiaryRepository.getDiaryByTime(currentTime, PageRequest.of(0, 10));
         if (!listDiary.isEmpty()) {
             listDiary.forEach(diary -> {
                 // Get list master record id from conditional by time
+                log.info("Get list master record id by diary: {}", diary.getId());
                 List<Long> listMasterRecordId = catalogOrderRepository.getMasterRecordIdsByTime(diary.getTimestampFrom(), diary.getTimestampTo());
-                var listDataFromOrderAndItem = catalogOrderRepository.getListDataFromOrderAndItem(listMasterRecordId);
-                listPreReport.addAll(listDataFromOrderAndItem);
+                if (listMasterRecordId.size() > 0) {
+                    log.info("Get list data by list master record id");
+                    var listDataFromOrderAndItem = orderPreReportRepository.getlistPreReport(listMasterRecordId);
+                    if (listDataFromOrderAndItem.size() > 0) {
+                        PreReportItemReaderView preReportItemReaderView = PreReportItemReaderView.builder()
+                                .diaryId(diary.getId())
+                                .listPreReportDto(listDataFromOrderAndItem)
+                                .build();
+                        listResult.add(preReportItemReaderView);
+                    }
+                }
             });
         }
-        return listPreReport;
+        return listResult;
     }
 }

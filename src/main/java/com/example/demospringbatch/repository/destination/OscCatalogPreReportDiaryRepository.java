@@ -1,11 +1,12 @@
-package com.example.demospringbatch.repository.source;
+package com.example.demospringbatch.repository.destination;
 
-import com.example.demospringbatch.domain.source.OscCatalogPreReportDiary;
+import com.example.demospringbatch.domain.destination.OscCatalogPreReportDiary;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
+import java.util.Set;
 
 public interface OscCatalogPreReportDiaryRepository extends JpaRepository<OscCatalogPreReportDiary, Long> {
 
@@ -13,4 +14,6 @@ public interface OscCatalogPreReportDiaryRepository extends JpaRepository<OscCat
             "where (d.rendered is null or d.rendered < 0) and d.timestampTo <= :timestampTo " +
             "ORDER BY d.timestampFrom DESC")
     List<OscCatalogPreReportDiary> getDiaryByTime(@Param("timestampTo") Long timestampTo, Pageable pageable);
+
+    List<OscCatalogPreReportDiary> findByIdIn(Set<Long> ids);
 }

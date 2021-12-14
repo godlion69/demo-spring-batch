@@ -10,8 +10,8 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "cv_catalog_pre_report_refund")
-public class CvCatalogPreReportRefund implements Serializable {
+@Table(name = "osc_catalog_pre_report_refund")
+public class OscCatalogPreReportRefund implements Serializable {
 
     @Id
     private Long id;

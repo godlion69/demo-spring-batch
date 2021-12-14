@@ -1,9 +1,6 @@
-package com.example.demospringbatch.domain.source;
+package com.example.demospringbatch.domain.destination;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +8,7 @@ import java.io.Serializable;
 @Entity
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "osc_catalog_pre_report_diary")
@@ -26,7 +24,7 @@ public class OscCatalogPreReportDiary implements Serializable {
     @Column(name = "to_timestamp")
     private Long timestampTo;
 
-    private Long rendered;
+    private Integer rendered;
 
     @Column(name = "last_success")
     private Long lastSuccess;

@@ -15,6 +15,7 @@ public class MyCustomProcessor implements ItemProcessor<PreReportDto , OscCatalo
     public OscCatalogPreReport process(PreReportDto item) throws Exception {
         System.out.println("Batch processor: Processing data: " + item);
         return OscCatalogPreReport.builder()
+                .orderMasterRecordId(item.getOrderMasterRecordId())
                 .storeId(item.getStoreId())
                 .orderCode(item.getOrderCode())
                 .orderDate(item.getOrderDate())

@@ -3,6 +3,7 @@ package com.example.demospringbatch.config;
 
 import com.example.demospringbatch.domain.destination.OscCatalogPreReport;
 import com.example.demospringbatch.model.PreReportDto;
+import com.example.demospringbatch.model.PreReportItemReaderView;
 import com.example.demospringbatch.service.MyCustomProcessor;
 import com.example.demospringbatch.service.MyCustomWriter;
 import org.springframework.batch.core.Job;
@@ -24,12 +25,8 @@ public class BatchConfig {
     private JobBuilderFactory jobBuilderFactory;
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
-//    @Autowired
-//    private MyCustomReader myCustomReader;
     @Autowired
     private MyCustomWriter myCustomWriter;
-    @Autowired
-    private MyCustomProcessor myCustomProcessor;
 
     @Bean
     public Job createJob(@Qualifier("orderPreReportStep") Step orderPreReportStep) {
@@ -39,11 +36,10 @@ public class BatchConfig {
     }
 
     @Bean
-    public Step orderPreReportStep(@Qualifier("catalogOrderPreReportItemReader") ItemReader<PreReportDto> preReportDtoItemReader) {
+    public Step orderPreReportStep(@Qualifier("catalogOrderPreReportItemReader") ItemReader<PreReportItemReaderView> preReportDtoItemReader) {
         return stepBuilderFactory.get("orderPreReportStep")
-                .<PreReportDto, OscCatalogPreReport> chunk(1)
+                .<PreReportItemReaderView, PreReportItemReaderView> chunk(1)
                 .reader(preReportDtoItemReader)
-                .processor(myCustomProcessor)
                 .writer(myCustomWriter)
                 .build();
     }

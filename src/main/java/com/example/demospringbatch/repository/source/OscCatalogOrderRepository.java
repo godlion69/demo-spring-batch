@@ -1,7 +1,6 @@
 package com.example.demospringbatch.repository.source;
 
 import com.example.demospringbatch.domain.source.OscCatalogOrder;
-import com.example.demospringbatch.model.CatalogPreReportReader;
 import com.example.demospringbatch.model.PreReportDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,11 +26,12 @@ public interface OscCatalogOrderRepository extends JpaRepository<OscCatalogOrder
     List<Long> getMasterRecordIdsByTime(@Param("timestampFrom") Long timestampFrom, @Param("timestampTo") Long timestampTo);
 
 
-    @Query(value = "select or.masterRecordId as orderMasterRecordId," +
-            "it.shopId as storeId," +
-            "or.code as orderCode," +
-            "or.addedTimestamp as orderDate," +
-            "it.addedTimestamp as itemDate, it.title as productName " +
-            "from OscCatalogOrder or join OscCatalogOrderItem it on or.masterRecordId = it.masterRecordId where or.masterRecordId in :listMasterRecordId")
-    List<PreReportDto> getListDataFromOrderAndItem(@Param("listMasterRecordId") List<Long> listMasterRecordId);
+//    @Query(value = "select od.master_record_id as orderMasterRecordId, " +
+//            "it.shop_id as storeId, " +
+//            "od.code as orderCode, " +
+//            "od.added_timestamp as orderDate, " +
+//            "it.added_timestamp as itemDate, it.title as productName " +
+//            "from osc_catalog_order od join osc_catalog_order_item it on od.master_record_id = it.order_master_record_id " +
+//            "where od.master_record_id in :listMasterRecordId", nativeQuery = true)
+//    List<PreReportDto> getListDataFromOrderAndItem(@Param("listMasterRecordId") List<Long> listMasterRecordId);
 }
