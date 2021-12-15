@@ -1,10 +1,7 @@
 package com.example.demospringbatch.config;
 
 
-import com.example.demospringbatch.domain.destination.OscCatalogPreReport;
-import com.example.demospringbatch.model.PreReportDto;
 import com.example.demospringbatch.model.PreReportItemReaderView;
-import com.example.demospringbatch.service.MyCustomProcessor;
 import com.example.demospringbatch.service.MyCustomWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
