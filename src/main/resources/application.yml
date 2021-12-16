@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: bard
+  datasource:
+    jdbc-url: jdbc:mysql://10.199.100.211/9prints_master_dev
+    username: hoangdx
+    password: '>Uu3XsUDGc'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 10000
+  destination-datasource:
+    jdbc-url: jdbc:mysql://localhost/9prints_master_bak
+    username: root
+    password: '123456'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 10000
+  jpa:
+    database: default
+    show-sql: true
+    generate-ddl: false
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+  batch:
+    jdbc:
+      initialize-schema: always
