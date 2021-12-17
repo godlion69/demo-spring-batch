@@ -29,13 +29,11 @@ import javax.sql.DataSource;
 public class SourceDBConfig {
 
     @Bean(name = "sourceDataSource")
-    @Primary
-    @ConfigurationProperties(prefix = "spring.datasource")
+    @ConfigurationProperties(prefix = "spring.second-datasource")
     public DataSource sourceDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
     @Bean(name = "sourceEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(EntityManagerFactoryBuilder builder,
                                                                               @Qualifier("sourceDataSource") DataSource sourceDataSource) {

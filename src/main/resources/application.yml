@@ -2,16 +2,16 @@ spring:
   application:
     name: bard
   datasource:
-    jdbc-url: jdbc:mysql://10.199.100.211/9prints_master_dev
-    username: hoangdx
-    password: '>Uu3XsUDGc'
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      connection-timeout: 10000
-  destination-datasource:
     jdbc-url: jdbc:mysql://localhost/9prints_master_bak
     username: root
     password: '123456'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 10000
+  second-datasource:
+    jdbc-url: jdbc:mysql://10.199.100.211/9prints_master_dev
+    username: hoangdx
+    password: '>Uu3XsUDGc'
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-timeout: 10000
@@ -22,4 +22,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5Dialect
   batch:
     jdbc:
-      initialize-schema: always
+      initialize-schema: never
+  flyway:
+    url: jdbc:mysql://localhost/9prints_master_bak
+    user: root
+    password: '123456'
+    baseline-on-migrate: true

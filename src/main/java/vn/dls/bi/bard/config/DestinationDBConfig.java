@@ -1,11 +1,13 @@
 package vn.dls.bi.bard.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -27,13 +29,16 @@ import javax.sql.DataSource;
 )
 public class DestinationDBConfig {
 
+    @FlywayDataSource
+    @Primary
     @Bean(name = "destinationDataSource")
-    @ConfigurationProperties(prefix = "spring.destination-datasource")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource destinationDataSource() {
         return DataSourceBuilder.create().build();
     }
 
 
+    @Primary
     @Bean(name = "destinationEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean destinationEntityManagerFactory(EntityManagerFactoryBuilder builder,
                                                                               @Qualifier("destinationDataSource") DataSource destinationDataSource) {
